@@ -1,9 +1,9 @@
 ---
-name: Feature request
+name: "[FE]"
 about: Suggest an idea for this project
 title: ''
-labels: ''
-assignees: ''
+labels: fe, feat
+assignees: kie9400
 
 ---
 
