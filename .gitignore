@@ -9,6 +9,20 @@ dist/
 web-build/
 expo-env.d.ts
 
+# Expo cache files
+.expo-shared/
+
+# Bundled files
+index.android.bundle
+index.ios.bundle
+main.jsbundle
+
+# Coverage reports from testing tools
+coverage/
+
+# Miscellaneous system files
+Thumbs.db
+
 # Native
 *.orig.*
 *.jks
