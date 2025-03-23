@@ -4,11 +4,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { PRIMARY_COLOR } from '../constants/colors';
 import { commonStyles } from '../constants/styles';
 import IconButton from '../components/IconButton';
+import MokoonTest from '../api/queries/MokoonTest';
 
 function HomeScreen({ navigation }) {
   return (
     <View style={commonStyles.container}>
-      <Text style={commonStyles.text}>Home Screen</Text>
+      {/* <Text style={commonStyles.text}>Home Screen</Text> */}
+      <MokoonTest/>
     </View>
   );
 }

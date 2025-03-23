@@ -5,7 +5,7 @@ import { commonStyles } from '../constants/styles';
 function ProfileScreen() {
   return (
     <View style={commonStyles.container}>
-      <Text style={commonStyles.text}>Profile~~ Screen!</Text>
+      <Text style={commonStyles.text}>Profile Screen!</Text>
     </View>
   );
 }

@@ -23,10 +23,9 @@ function AppNavigator() {
         headerLeft: () => (
           <TouchableOpacity
             style={commonStyles.backButton}
-            onPress={() => navigation.goBack()}
           >
             {/* <Text style={styles.backButtonText}>뒤로</Text> */}
-            <IconButton name={"arrow-back"} size={30} color={BORDER_COLOR}/>
+            <IconButton onPress={() => navigation.goBack()} name={"arrow-back"} size={30} color={BORDER_COLOR}/>
           </TouchableOpacity>
         ),
       })} >
