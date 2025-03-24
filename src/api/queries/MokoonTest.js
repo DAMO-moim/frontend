@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://192.168.175.95:3001',
+  baseURL: 'http://172.30.1.52:3001',
 });
 
 // 전체 사용자 목록 조회
