@@ -1,6 +1,5 @@
-// constants/styles.js
 import { StyleSheet } from 'react-native';
-import { BLACK_COLOR, G_DARKER_COLOR, NAV_BAR_COLOR, PRIMARY_BACK_COLOR, PRIMARY_BTN_COLOR, WHITE_COLOR } from './colors';
+import { BLACK_COLOR, ERROR_COLOR, G_DARKER_COLOR, NAV_BAR_COLOR, PRIMARY_BACK_COLOR, PRIMARY_BTN_COLOR, WHITE_COLOR } from './colors';
 
 export const commonStyles = StyleSheet.create({
   container: {
@@ -13,7 +12,7 @@ export const commonStyles = StyleSheet.create({
   },
   header: {
     backgroundColor: NAV_BAR_COLOR,
-    height: 60,
+    height: 80,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e5e5',
 },
@@ -100,13 +99,17 @@ export const commonInput = StyleSheet.create({
     marginBottom: 8,
   },
   input: {
-    height: 40,
+    height: 48,
     borderColor: BLACK_COLOR,
     borderWidth: 1,
     marginBottom: 4,
     paddingHorizontal: 10,
     backgroundColor: WHITE_COLOR,
     borderRadius: 8, // 둥근 모서리
+  },
+  error:{
+    borderColor: ERROR_COLOR,
+    borderWidth: 1,
   },
   description: {
     fontSize: 12,
@@ -118,10 +121,6 @@ export const passwordInput = StyleSheet.create({
   container: {
     width: "100%",
     fontFamily: 'NotoSansKR-Regular'
-    // borderColor: 'purple', // 보라색 테두리
-    // borderWidth: 2,
-    // padding: 10,
-    // marginBottom: 20,
   },
 
   inputContainer: {
@@ -136,7 +135,7 @@ export const passwordInput = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
+    height: 48,
     fontSize: 14,
     color: BLACK_COLOR,
   },
