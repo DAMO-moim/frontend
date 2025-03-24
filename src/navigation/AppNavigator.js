@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, TouchableOpacity,Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import HomeScreen from '../screens/loginBefore/HomeScreen';
 import CustomTabBar from './CustomTabBar';
 import { BORDER_COLOR, NAV_BAR_COLOR, PRIMARY_BACK_COLOR } from '../constants/colors';
 import IconButton from '../components/IconButton';
 import { commonStyles } from '../constants/styles';
+import { RegisterScreen } from '../screens/loginBefore/RegisterScreen';
+import { LoginScreen } from '../screens/loginBefore/LoginScreen';
+import { AuthContext } from '../contexts/AuthProvider';
+import MainScreen from '../screens/loginAfter/MainScreen';
+import ProfileScreen from '../screens/loginAfter/ProfileScreen';
+import SettingsScreen from '../screens/loginAfter/SettingsScreen';
+import HelpScreen from '../screens/loginAfter/HelpScreen';
 
 const Tab = createBottomTabNavigator();
 
 function AppNavigator() {
+
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
       <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />}  
         screenOptions={({ route, navigation }) => ({
@@ -23,15 +32,26 @@ function AppNavigator() {
         headerLeft: () => (
           <TouchableOpacity
             style={commonStyles.backButton}
-            onPress={() => navigation.goBack()}
           >
             {/* <Text style={styles.backButtonText}>뒤로</Text> */}
-            <IconButton name={"arrow-back"} size={30} color={BORDER_COLOR}/>
+            <IconButton onPress={() => navigation.goBack()} name={"arrow-back"} size={30} color={BORDER_COLOR}/>
           </TouchableOpacity>
         ),
       })} >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+       {isLoggedIn ? (
+        <>
+          <Tab.Screen name="Main" component={MainScreen} />
+          <Tab.Screen name="Profile" component={ProfileScreen} />
+          <Tab.Screen name="Settings" component={SettingsScreen} />
+          <Tab.Screen name="Help" component={HelpScreen} />
+        </>
+      ) : (
+        <>
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Login" component={LoginScreen} />
+          <Tab.Screen name="Register" component={RegisterScreen} />
+        </>
+      )}
       </Tab.Navigator>
   );
 }
