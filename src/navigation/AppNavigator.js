@@ -13,6 +13,7 @@ import MainScreen from '../screens/loginAfter/MainScreen';
 import ProfileScreen from '../screens/loginAfter/ProfileScreen';
 import SettingsScreen from '../screens/loginAfter/SettingsScreen';
 import HelpScreen from '../screens/loginAfter/HelpScreen';
+import MinScreen from '../screens/loginBefore/MinScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +35,13 @@ function AppNavigator() {
             style={commonStyles.backButton}
           >
             {/* <Text style={styles.backButtonText}>뒤로</Text> */}
-            <IconButton onPress={() => navigation.goBack()} name={"arrow-back"} size={30} color={BORDER_COLOR}/>
+            <IconButton   
+              onPress={() => {
+                if (navigation.canGoBack()) {
+                  navigation.goBack();
+                }
+              }}  
+              name={"arrow-back"} size={30} color={BORDER_COLOR}/>
           </TouchableOpacity>
         ),
       })} >
@@ -47,6 +54,7 @@ function AppNavigator() {
         </>
       ) : (
         <>
+          <Tab.Screen name="Min" component={MinScreen} />
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Login" component={LoginScreen} />
           <Tab.Screen name="Register" component={RegisterScreen} />
