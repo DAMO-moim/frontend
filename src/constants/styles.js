@@ -9,8 +9,8 @@ export const commonStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: PRIMARY_BACK_COLOR,
     padding: 16,
-    borderWidth:1,
-    borderColor:BLACK_COLOR,
+    // borderWidth:1,
+    // borderColor:BLACK_COLOR,
     width:'100%'
   },
   header: {

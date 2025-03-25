@@ -8,7 +8,6 @@ import { useUser } from '../../hooks/useUser';
 import { commonBtn, commonStyles } from '../../constants/styles';
 import { BLACK_COLOR } from '../../constants/colors';
 
-// 이메일 유효성 검사 정규식
 const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
 export const LoginScreen = () => {
@@ -16,37 +15,47 @@ export const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  
+
   const { login } = useUser();
-  const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn, setUser } = useContext(AuthContext);
 
   const handleSubmit = async () => {
     let hasError = false;
-
+  
     if (!isValidEmail(email)) {
       setEmailError(true);
       hasError = true;
     } else {
       setEmailError(false);
     }
-
-    if (password.length < 8 || password.length > 21) { //최소 8자 이상 최대 20자 이하하
+  
+    if (password.length < 8 || password.length > 21) {
       setPasswordError(true);
       hasError = true;
     } else {
       setPasswordError(false);
     }
-
-    if (hasError) return; // 유효성 검사 실패하면 요청 안 보냄
-
+  
+    if (hasError) return;
+  
     try {
-      await login({ email, password });
-      setIsLoggedIn(true);
+      const data = await login({ email, password });
+      
+      setIsLoggedIn(true); // 로그인 상태 업데이트
+      setUser(data.user); // 사용자 정보 업데이트
+      
       alert('로그인 성공!');
     } catch (error) {
-      alert('로그인 실패!');
+      console.error('Login error:', error);
+      
+      if (error.message === '로그인 응답에 필요한 데이터가 없습니다.') {
+        alert('서버에서 필요한 데이터를 반환하지 않았습니다.');
+      } else {
+        alert('로그인 실패!');
+      }
     }
   };
+  
 
   return (
     <View style={[commonStyles.container, styles.container]}>
