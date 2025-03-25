@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { commonInput, passwordInput } from '../constants/styles';
+import { ERROR_COLOR } from '../constants/colors';
 
-const PasswordInput = ({ label, description, value, onChangeText, placeholder }) => {
+const PasswordInput = ({ label, description, value, onChangeText, placeholder, error }) => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
   const toggleSecureEntry = () => {
@@ -16,9 +17,9 @@ const PasswordInput = ({ label, description, value, onChangeText, placeholder })
       {label && <Text style={commonInput.label}>{label}</Text>}
 
       {/* Input Field with Icon */}
-      <View style={passwordInput.inputContainer}>
+      <View style={[passwordInput.inputContainer, error && styles.errorBorder]}>
         <TextInput
-          style={passwordInput.input}
+          style={passwordInput.input }
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
@@ -34,16 +35,19 @@ const PasswordInput = ({ label, description, value, onChangeText, placeholder })
       </View>
 
       {/* Description */}
-      {description && <Text style={commonInput.description}>{description}</Text>}
+      {description && <Text style={[commonInput.description, error && styles.errorText ]}>{description}</Text>}
     </View>
   );
 };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     marginBottom: 20,
-//   },
- 
-// });
+const styles = StyleSheet.create({
+  errorBorder: {
+    borderColor: ERROR_COLOR, // 빨간색 테두리
+    borderWidth: 1.5, // 테두리 두께
+  },
+  errorText: {
+    color: ERROR_COLOR, // 빨간색 텍스트
+  },
+});
 
 export default PasswordInput;
