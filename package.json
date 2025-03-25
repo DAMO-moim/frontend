@@ -1,7 +1,7 @@
 {
   "name": "damoapp_project",
   "version": "1.0.0",
-  "type": "module", 
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
@@ -27,9 +27,11 @@
     "react": "18.3.1",
     "react-native": "0.76.7",
     "react-native-gesture-handler": "~2.20.2",
+    "react-native-picker-select": "^9.3.1",
     "react-native-reanimated": "~3.16.1",
     "react-native-safe-area-context": "^4.14.1",
     "react-native-screens": "~4.4.0",
+    "react-native-ui-lib": "^7.39.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "~0.19.13",
     "react-use-measure": "^2.1.7",
