@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions, Image } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withRepeat, withTiming, Easing } from 'react-native-reanimated';
 import ImageCard from '../../components/animation/ImageCard';
 import { BLACK_COLOR } from '../../constants/colors';
-import { commonStyles } from '../../constants/styles';
+import { commonStyles, homeStyles } from '../../constants/styles';
 
 const { width } = Dimensions.get('window');
 
@@ -60,7 +60,7 @@ function HomeScreen() {
   const initialOffset = useMemo(() => ({ transform: { translateX: -totalWidth } }), [totalWidth]);
 
   return (
-    <View style={[commonStyles.container, styles.homeContainer]}>
+    <View style={[homeStyles.container]}>
       <Animated.View style={[styles.imageContainer1, animatedStyleLeft]}>
         {[...images, ...images].map((item, idx) => (
           <ImageCard image={item} key={idx} />

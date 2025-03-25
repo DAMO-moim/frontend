@@ -4,11 +4,14 @@ import { BLACK_COLOR, ERROR_COLOR, G_DARKER_COLOR, G_LIGHT_COLOR, NAV_BAR_COLOR,
 export const commonStyles = StyleSheet.create({
   container: {
     fontFamily: 'NotoSansKR-Regular',
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: PRIMARY_BACK_COLOR,
-    padding: 20,
+    padding: 16,
+    borderWidth:1,
+    borderColor:BLACK_COLOR,
+    width:'100%'
   },
   header: {
     backgroundColor: NAV_BAR_COLOR,
@@ -37,8 +40,10 @@ export const commonStyles = StyleSheet.create({
 export const homeStyles = StyleSheet.create({
   container:{
     display:'flex',
-    flexDirection:'row',
-    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: PRIMARY_BACK_COLOR,
+    height:'100%'
   }
 })
 
@@ -66,6 +71,28 @@ export const commonBtn = StyleSheet.create({
   },
   disabledText: {
     color: G_DARKER_COLOR, 
+  },
+})
+
+export const commonRadio = StyleSheet.create({
+  container:{
+    display:'flex',
+    justifyContent:'center'
+  },
+  radioGroup:{
+    display:'flex',
+    flexDirection:'row',
+    gap: 14
+  },
+  radioButtonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 2, 
+    paddingVertical: 2, 
+  },
+  radioLabel: {
+    marginLeft: 6,
+    fontSize: 14,
   },
 })
 
