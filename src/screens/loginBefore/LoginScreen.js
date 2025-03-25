@@ -70,7 +70,11 @@ export const LoginScreen = () => {
         description={passwordError ? '비밀번호 형식이 잘못되었습니다.' : ''}
       />
 
-      <CustomButton style={commonBtn} title="로그인" onPress={handleSubmit} />
+      <CustomButton 
+        title="로그인"
+        onPress={handleSubmit}
+        disabled={email.length < 1 || password.length < 7 || password.length > 21} 
+      />
     </View>
   );
 };

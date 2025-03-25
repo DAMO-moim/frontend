@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { BLACK_COLOR, ERROR_COLOR, G_DARKER_COLOR, NAV_BAR_COLOR, PRIMARY_BACK_COLOR, PRIMARY_BTN_COLOR, WHITE_COLOR } from './colors';
+import { BLACK_COLOR, ERROR_COLOR, G_DARKER_COLOR, G_LIGHT_COLOR, NAV_BAR_COLOR, PRIMARY_BACK_COLOR, PRIMARY_BTN_COLOR, WHITE_COLOR } from './colors';
 
 export const commonStyles = StyleSheet.create({
   container: {
@@ -58,8 +58,17 @@ export const commonBtn = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     color: BLACK_COLOR,
-  }
+  },
+
+   // 비활성화 상태 스타일
+   disabledBtn: {
+    backgroundColor: G_LIGHT_COLOR, 
+  },
+  disabledText: {
+    color: G_DARKER_COLOR, 
+  },
 })
+
 
 export const categoryIcon = StyleSheet.create({
   gContainer:{
