@@ -14,6 +14,7 @@ import ProfileScreen from '../screens/loginAfter/ProfileScreen';
 import SettingsScreen from '../screens/loginAfter/SettingsScreen';
 import HelpScreen from '../screens/loginAfter/HelpScreen';
 import MinScreen from '../screens/loginBefore/MinScreen';
+import SelectCategories from '../screens/loginBefore/SelectCategories';
 
 const Tab = createBottomTabNavigator();
 
