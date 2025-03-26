@@ -36,7 +36,7 @@ export const RegisterScreen = () => {
   const [gender, setGender] = useState('MAN');
   const [agreed, setAgreed] = useState(false);
   const [errors, setErrors] = useState({});
-  const [isFormValid, setIsFormValid] = useState(false); // 🔹 폼 유효성 상태 추가
+  const [isFormValid, setIsFormValid] = useState(false); // 폼 유효성 상태 추가
 
   useEffect(() => {
     if (confirmPassword && password !== confirmPassword) {

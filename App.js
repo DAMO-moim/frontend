@@ -26,6 +26,7 @@ function App() {
             <Text>Width: {layout.width}</Text>
             <Text>Height: {layout.height}</Text>
           </View> */}
+          {/* <Stack.Screen name="Register" component={RegisterScreen} /> */}
         </NavigationContainer>
       </AuthProvider>
     </QueryClientProvider>
