@@ -67,15 +67,36 @@ export const RegisterScreen = () => {
 
   const registerMutation = useMutation({
     mutationFn: userService.registerUser,
-    onSuccess: () => navigation.navigate('CategorySelection'),
+    onSuccess: () => navigation.navigate('SelectCategories'),
     onError: (error) => setErrors({ server: error.response?.data || '회원가입에 실패했습니다.' }),
   });
 
+  // const handleSubmit = () => {
+  //   if (!isFormValid) return;
+  //   const data = { email, password, name, phoneNumber: phone, birth, gender, memberCategories: [] };
+  //   registerMutation.mutate(data);
+  // };
+
   const handleSubmit = () => {
     if (!isFormValid) return;
-    const data = { email, password, name, phoneNumber: phone, birth, gender, memberCategories: [] };
-    registerMutation.mutate(data);
+  
+    // Prepare initial registration data
+    const initialData = {
+      email,
+      password,
+      name,
+      phoneNumber: phone,
+      birth,
+      gender,
+      memberCategories: [], // Empty initially, will be updated in SelectCategories
+    };
+  
+    // Navigate to SelectCategories and pass initialData
+    navigation.navigate('SelectCategories', { initialData });
   };
+  
+  
+  
 
   const handlePhoneChange = (text) => {
     const formattedPhone = formatPhoneNumber(text);
@@ -142,7 +163,11 @@ export const RegisterScreen = () => {
           <Text style={styles.checkboxLabel}>개인정보 동의</Text>
         </View>
         {errors.agreed && <Text style={styles.errorText}>{errors.agreed}</Text>}
-        {errors.server && <Text style={styles.errorText}>{errors.server}</Text>}
+        {errors.server && (
+  <Text style={styles.errorText}>
+    {typeof errors.server === 'object' ? JSON.stringify(errors.server) : errors.server}
+  </Text>
+)}
 
         <CustomButton title="회원가입 완료" onPress={handleSubmit} disabled={!isFormValid || registerMutation.isLoading} />
       </ScrollView>

@@ -15,6 +15,7 @@ export default [
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
+      parser: "@babel/eslint-parser", // JSX 파서 추가
       globals: {
         __DEV__: true, // React Native에 자주 나오는 글로벌
       },
