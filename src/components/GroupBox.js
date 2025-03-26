@@ -1,22 +1,27 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { BLACK_COLOR, G_DARK_COLOR, WHITE_COLOR } from '../constants/colors';
 
-const GroupBox = ({ image, title, text }) => {
+const GroupBox = ({ image, title, text, isLeader, currentCount, maxCount }) => {
   return (
     <View style={styles.card}>
       {/* 이미지 섹션 */}
-      <View style={styles.imageContainer}>
-        <Image
-          source={require('../../assets/images/groups/Sports.png')} // 로컬 이미지 경로
-          style={styles.image} // 스타일 이름 수정
-        />
-      </View>
-
+          <Image source={image} style={styles.image} />
       {/* 텍스트 섹션 */}
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Title</Text>
-        <Text style={styles.subtitle}>15/20</Text>
-        <Text style={styles.description}>Text</Text>
+      <View style={styles.titleRow}>
+      <View style={styles.leftSection}>
+            <View style={styles.circle}></View> {/* Circle 추가 */}
+            <Text style={styles.title}>{title}</Text>
+            {isLeader && <Text style={styles.leaderTag}>모임장</Text>}
+          </View>
+          <Text style={styles.count}>
+            {currentCount}/{maxCount}
+          </Text>
+        </View>
+        <Text style={styles.description} numberOfLines={2} ellipsizeMode="tail">
+          {text}
+          </Text>
       </View>
     </View>
   );
@@ -24,47 +29,63 @@ const GroupBox = ({ image, title, text }) => {
 
 const styles = StyleSheet.create({
   card: {
-    width:'100%',
-    flexDirection: 'row', // 가로 배치
-    backgroundColor: '#f8f8f8',
-    borderRadius: 10,
-    padding: 10,
-    margin: 10,
-    boxShadow: '4px 4px 0 0 rgba(0,0,0,0.9)',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
-    alignItems: 'center', // 세로 중앙 정렬
-  },
-  imageContainer: {
-    justifyContent: 'center',
+    width: '100%',
+    flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: WHITE_COLOR,
+    borderRadius: 15,
+    padding: 15,
+    marginVertical: 10,
+    marginHorizontal: 20,
   },
   image: {
-    width: 70, // 이미지 너비
-    height: 70, // 이미지 높이
-    borderRadius: 35, // 원형으로 만들기 위해 너비/높이의 절반 설정
+    width: 70,
+    height: 70,
+    borderRadius: 35, // 원형 이미지
+    marginRight: 15,
   },
   textContainer: {
     flex: 1,
-    marginLeft: 15, // 이미지와 텍스트 간격 조정
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between', // 제목과 인원 수를 양쪽 끝에 배치
     marginBottom: 5,
   },
-  subtitle: {
-    fontSize: 14,
+  leftSection: {
+    flexDirection: 'row', // Circle과 Title을 가로로 배치
+    alignItems: 'center',
+  },
+  circle: {
+    width: 8, // 동그라미 크기
+    height: 8,
+    borderRadius: 4, // 원형으로 만들기 위해 너비/높이의 절반 설정
+    backgroundColor: '#66D3A5', // 동그라미 색상 일단 초록색으로 해뒀고 원 안에 원 말고 원 하나만 해뒀습니다 ~
+    marginHorizontal: 8
+  },
+  title: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: BLACK_COLOR,
+    marginRight: 8,
+  },
+  leaderTag: {
+    fontSize: 12, 
     color: '#666',
-    marginBottom: 5,
+    marginLeft: 'auto', // 제목과 모임장 사이 간격
+  },
+  count: {
+    fontSize: 12,
+    color: BLACK_COLOR,
   },
   description: {
     fontSize: 12,
-    color: '#999',
+    color: BLACK_COLOR,
+    marginTop: -5, // 설명 텍스트 위치 조정
+    overflow:'hidden', 
+    textOverflow:'ellipsis' 
   },
 });
 
