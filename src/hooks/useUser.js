@@ -21,16 +21,26 @@ export const useUser = () => {
     mutationFn: userService.loginUser,
     onSuccess: async (data) => {
       console.log("useUser = ", data);
-      await AsyncStorage.setItem("accessToken", data.accessToken);
+  
+      // Check if accessToken exists
+      if (!data.accessToken) {
+        console.warn("Warning: accessToken is missing from the response!");
+        return;
+      }
+  
       queryClient.setQueryData(["user"], data.user);
       queryClient.invalidateQueries(["user"]);
+  
       setIsLoggedIn(true); // 로그인 성공 시 상태 업데이트
     },
-    onError: () => {
+    onError: (error) => {
+      console.error("Login failed:", error);
+      alert('로그인 실패! 서버 오류가 발생했습니다.');
       setIsLoggedIn(false); // 로그인 실패 시 상태 초기화
     },
   });
-
+  
+  
   const login = useCallback(
     async (loginData) => {
       console.log(loginData);

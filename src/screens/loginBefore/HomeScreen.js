@@ -60,7 +60,7 @@ function HomeScreen() {
   const initialOffset = useMemo(() => ({ transform: { translateX: -totalWidth } }), [totalWidth]);
 
   return (
-    <View style={[homeStyles.container]}>
+    <View style={homeStyles.container}>
       <Animated.View style={[styles.imageContainer1, animatedStyleLeft]}>
         {[...images, ...images].map((item, idx) => (
           <ImageCard image={item} key={idx} />

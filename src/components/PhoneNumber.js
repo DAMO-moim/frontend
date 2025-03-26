@@ -34,7 +34,7 @@ const PhoneInput = () => {
         value={phone}
         onChangeText={handlePhoneChange}
         keyboardType="numeric"
-        maxLength={13} // 전화번호 길이에 맞게
+        maxLength={13}
         placeholder="010-1234-1234"
       />
     </View>
