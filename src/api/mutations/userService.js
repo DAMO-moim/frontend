@@ -10,6 +10,13 @@ export const registerUser = async (userData) => {
   return response.data;
 };
 
+//아이디 찾기
+export const findUserId = async (userData) => {
+  const response = await instance.post(`/members/id`, userData);
+  return response.data;
+};
+
+
 export const loginUser = async (credentials) => {
   try {
     const response = await instance.post("/auth/login", credentials, {
