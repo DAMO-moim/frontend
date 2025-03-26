@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { useState } from 'react';
-import CommonTag from '../../components/CommonTag';
-import CategoryTag from '../../components/CategoryTag';
-import SelectCategories from '../SelectCategories';
+// import CommonTag from '../../components/CommonTag';
+// import CategoryTag from '../../components/CategoryTag';
+// import SelectCategories from './SelectCategories';
 import { commonStyles } from '../../constants/styles';
+import GroupBox from '../../components/GroupBox';
+// import MenuBar from '../../components/MenuBar';
+// import MyPage from '../MyPage';
 
 function MinScreen() {
   // 태그 목록을 상태로 관리
@@ -28,7 +31,8 @@ function MinScreen() {
         />
       ))} */}
         {/* <CategoryTag /> */}
-        <SelectCategories />
+        {/* 메뉴 버튼 */}
+      <GroupBox />
     </View>
   );
 }

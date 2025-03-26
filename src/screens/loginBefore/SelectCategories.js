@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import CategoryTag from '../components/CategoryTag';
-import { CustomButton } from '../components/CustomButton';
+import CategoryTag from '../../components/CategoryTag';
+import { CustomButton } from '../../components/CustomButton';
 
 const categories = [
     '사교/인맥', '독서', '언어', '요리', '스포츠',
