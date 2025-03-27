@@ -9,65 +9,15 @@ import { commonBtn, commonStyles } from '../../constants/styles';
 import { BLACK_COLOR } from '../../constants/colors';
 import { Link, useNavigation } from '@react-navigation/native';
 
-const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+const isValidUsername = (username) => /\S+@\S+\.\S+/.test(username);
 
 export const LoginScreen = () => {
 
-  // const navigation = useNavigation();
-  
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [emailError, setEmailError] = useState(false);
-  // const [passwordError, setPasswordError] = useState(false);
+  const navigation = useNavigation();
 
-  // const { login } = useUser();
-  // const { setIsLoggedIn, setUser } = useContext(AuthContext);
-
-  // const handleSubmit = async () => {
-  //   let hasError = false;
-  
-  //   if (!isValidEmail(email)) {
-  //     setEmailError(true);
-  //     hasError = true;
-  //   } else {
-  //     setEmailError(false);
-  //   }
-  
-  //   if (password.length < 8 || password.length > 21) { // 7 → 8로 수정
-  //     setPasswordError(true);
-  //     hasError = true;
-  //   } else {
-  //     setPasswordError(false);
-  //   }
-  
-  //   if (hasError) return;
-  
-  //   try {
-  //     const data = await login({ email, password });
-  //     console.log("✅ LoginScreen data:", data);
-  
-  //     if (!data || !data.users || data.users.length === 0) {
-  //       throw new Error("로그인 응답에 유효한 사용자 데이터가 없습니다.");
-  //     }
-  
-  //     setIsLoggedIn(true); 
-  //     setUser(data.users[0]); // 첫 번째 유저 객체 저장
-  
-  //     alert('로그인 성공!');
-  //   } catch (error) {
-  //     console.error('❌ Login error:', error);
-  
-  //     if (error.message.includes("유효한 사용자 데이터가 없습니다")) {
-  //       alert('서버에서 유효한 사용자 정보를 반환하지 않았습니다.');
-  //     } else {
-  //       alert('로그인 실패! 다시 시도해주세요.');
-  //     }
-  //   }
-  // };
-
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState(false);
+  const [userError, setUserError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
   const { login } = useUser();
@@ -75,8 +25,8 @@ export const LoginScreen = () => {
   const handleSubmit = async () => {
     let hasError = false;
 
-    if (!isValidEmail(email)) {
-      setEmailError(true);
+    if (!isValidUsername(username)) {
+      setUserError(true);
       hasError = true;
     }
 
@@ -88,9 +38,10 @@ export const LoginScreen = () => {
     if (hasError) return;
 
     try {
-      await login({ email, password });
+      await login({ username, password });
       alert('로그인 성공!');
     } catch (error) {
+      console.log(error.response?.data);
       alert(error.message || '로그인 실패!');
     }
   };
@@ -106,10 +57,10 @@ export const LoginScreen = () => {
         <InputWithLabel
           label="아이디"
           placeholder="이메일 형식으로 입력해주세요."
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          error={emailError}
-          description={emailError ? '이메일 형식을 잘못 입력했습니다.' : ''}
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+          error={userError}
+          description={userError ? '이메일 형식을 잘못 입력했습니다.' : ''}
         />
         <PasswordInput
           label="비밀번호"
@@ -125,7 +76,7 @@ export const LoginScreen = () => {
        <CustomButton 
           title="로그인"
           onPress={handleSubmit}
-          disabled={email.length < 1 || password.length < 8 || password.length > 21} // 7 → 8 수정
+          disabled={username.length < 1 || password.length < 8 || password.length > 21} // 7 → 8 수정
         />
         <View style={styles.linkBox}>
         <Text onPress={() => navigation.navigate('Register')} style={styles.linkText}>

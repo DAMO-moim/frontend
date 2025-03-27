@@ -54,6 +54,8 @@ const SelectCategories = () => {
 
     const finalData = { ...initialData, memberCategories };
 
+    console.log("finalData = ", finalData);
+
     try {
       if (Object.keys(initialData).length > 0) {
         // 회원가입 진행 중
@@ -67,6 +69,7 @@ const SelectCategories = () => {
         navigation.replace('MainTabs');
       }
     } catch (error) {
+      console.log(error.response?.data);
       console.error('회원가입 또는 카테고리 저장 실패:', error);
     }
   };

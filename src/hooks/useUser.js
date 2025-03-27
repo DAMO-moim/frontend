@@ -22,7 +22,7 @@ export const useUser = () => {
     onSuccess: async (data) => {
       console.log("useUser = ", data);
       await AsyncStorage.setItem("accessToken", data.accessToken);
-      queryClient.setQueryData(["user"], data.user);
+      queryClient.setQueryData(["user"], data.users);
       queryClient.invalidateQueries(["user"]);
       setIsLoggedIn(true); // 로그인 성공 시 상태 업데이트
     },
