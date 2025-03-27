@@ -8,6 +8,7 @@ export const PRIMARY_BTN_COLOR = "#FFD700";
 
 //point-y-light
 export const YELLOW_LIGHT_COLOR = "#F2E6F7";
+export const GREEN_LIGHT_COLOR = "#CCF5A2";
 //point-y-dark
 export const YELLOW_DARK_COLOR = "#FFC27E";
 
