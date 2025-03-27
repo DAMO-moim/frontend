@@ -12,6 +12,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import { commonRadio, commonStyles } from '../../constants/styles';
 import { CommonRadio } from '../../components/CommonRadio';
 import { instance } from '../../api/axiosInstance';
+import CommonCheckBox from '../../components/CommonCheckBox';
 
 // 이메일 유효성 검사 정규식
 const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -286,16 +287,14 @@ export const RegisterScreen = () => {
           />
         </View>
 
-        <View style={styles.checkboxContainer}>
-          <Checkbox value={agreed} onValueChange={setAgreed} />
-          <Text style={styles.checkboxLabel}>개인정보 동의</Text>
-        </View>
-        {errors.agreed && <Text style={styles.errorText}>{errors.agreed}</Text>}
-        {errors.server && (
-        <Text style={styles.errorText}>
-          {typeof errors.server === 'object' ? JSON.stringify(errors.server) : errors.server}
-        </Text>
-        )}
+        <CommonCheckBox
+        label="개인정보 동의"
+        value={agreed}
+        onValueChange={setAgreed}
+        error={errors.agreed}
+        errorMessage={errors.errorMessage}
+      />
+        
 
         <CustomButton title="회원가입 완료" onPress={handleSubmit} disabled={!isFormValid || registerMutation.isLoading} />
       </ScrollView>
