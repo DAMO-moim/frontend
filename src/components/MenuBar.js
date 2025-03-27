@@ -1,36 +1,36 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
-import { WHITE_COLOR } from '../constants/colors';
-// bgColor -> MenuBar의 색깔(제일 왼쪽부분)
-const MenuBar = ({ image, text, style }) => {
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+
+const MenuBar = ({ image, text, style, iconWrapperStyle, onPress }) => {
   return (
-    <View style={[styles.container, style]}>
-      <View style={styles.iconWrapper}>
-      <Image source={image} style={styles.icon} />
+    <TouchableOpacity 
+      style={[styles.container, style]} 
+      onPress={onPress} // ✅ TouchableOpacity에서 onPress 실행
+      activeOpacity={0.7} // ✅ 터치 시 약간 투명 효과 추가
+    >
+      <View style={[styles.iconWrapper, iconWrapperStyle]}>
+        <Image source={image} style={styles.icon} />
       </View>
       <Text style={styles.myContent}>{text}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width:'100%',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    marginBottom: 15,
+    padding: 12,
     borderRadius: 10,
-    position: 'relative', // 그림자 배치를 위해 position 사용
-    backgroundColor: WHITE_COLOR,
+    backgroundColor: '#fff',
+    marginBottom: 10,
   },
   iconWrapper: {
     width: 40,
     height: 40,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
     marginRight: 10,
   },
   icon: {
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   },
   myContent: {
     fontSize: 16,
+    fontWeight: '500',
     color: '#333',
   },
 });

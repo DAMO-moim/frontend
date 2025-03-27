@@ -126,6 +126,9 @@ import { commonStyles } from '../constants/styles';
 import IconButton from '../components/IconButton';
 import { BORDER_COLOR } from '../constants/colors';
 import CustomTabBar from './CustomTabBar';
+import { FindIdScreen } from '../screens/loginBefore/FindIdScreen';
+import { SuccessFindIdScreen } from '../screens/loginBefore/SuccessFindId';
+import MyPageScreen from '../screens/loginAfter/MyPageScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -164,8 +167,8 @@ function TabNavigator() {
         <>
           <Tab.Screen name="Main" component={MainScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
           <Tab.Screen name="Help" component={HelpScreen} />
+          <Tab.Screen name="MyPage" component={MyPageScreen} />
         </>
       ) : (
         // 로그인 전 화면
@@ -217,6 +220,21 @@ export default function AppNavigator() {
               headerShown: false, // 탭 네비게이터의 헤더 숨김
             }}
           />
+          <Stack.Screen name="Register" component={RegisterScreen} options={{
+              headerShown: true,
+            }}/>
+          <Stack.Screen name='FindId' component={FindIdScreen}  options={{
+              headerShown: true,
+            }}/>
+            <Stack.Screen name='SuccessFindId' component={SuccessFindIdScreen}  options={{
+              headerShown: true,
+            }}/>
+            <Stack.Screen name='Login' component={LoginScreen}  options={{
+              headerShown: true,
+            }}/>
+            {/* <Stack.Screen name='BoardPost' component={LoginScreen}  options={{
+              headerShown: true,
+            }}/> */}
           {/* 회원가입 완료 후 카테고리 선택 */}
           <Stack.Screen
             name="SelectCategories"
