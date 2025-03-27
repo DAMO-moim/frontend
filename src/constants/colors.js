@@ -4,10 +4,11 @@ export const NAV_BAR_COLOR = "#CCE5E5";
 export const WHITE_COLOR = "#FDFDFD";
 export const BLACK_COLOR = "#131313";
 export const BORDER_COLOR = "#828282";
-export const PRIMARY_BTN_COLOR = "#FEDA79";
+export const PRIMARY_BTN_COLOR = "#FFD700";
 
 //point-y-light
 export const YELLOW_LIGHT_COLOR = "#F2E6F7";
+export const GREEN_LIGHT_COLOR = "#CCF5A2";
 //point-y-dark
 export const YELLOW_DARK_COLOR = "#FFC27E";
 
