@@ -2,22 +2,20 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const instance = axios.create({
-//   baseURL: "http://localhost:8082/api",
-  // baseURL: "http://172.30.1.17:8082/api",
   baseURL: "http://ec2-3-39-190-50.ap-northeast-2.compute.amazonaws.com:8080",
-  // withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });
 
 instance.interceptors.request.use(async (config) => {
   const token = await AsyncStorage.getItem("accessToken");
   if (token) {
-    config.headers.Authorization = token;
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 }, (error) => {
   return Promise.reject(error);
 });
+
 
 // instance.interceptors.response.use(
 //   (response) => response, 

@@ -232,6 +232,9 @@ export default function AppNavigator() {
             <Stack.Screen name='Login' component={LoginScreen}  options={{
               headerShown: true,
             }}/>
+            {/* <Stack.Screen name='BoardPost' component={LoginScreen}  options={{
+              headerShown: true,
+            }}/> */}
           {/* 회원가입 완료 후 카테고리 선택 */}
           <Stack.Screen
             name="SelectCategories"
