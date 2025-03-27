@@ -47,7 +47,7 @@ export const FindIdScreen = () => {
 
     const requestData = {
       name,
-      phoneNumber: phone.replace(/-/g, ''), // 전화번호에서 하이픈 제거
+      phoneNumber: phone, 
     };
 
     findIdMutation.mutate(requestData); // API 호출

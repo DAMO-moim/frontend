@@ -47,6 +47,24 @@ export const homeStyles = StyleSheet.create({
   }
 })
 
+export const commonShadow = StyleSheet.create({
+  btnShadow:{
+    borderWidth:1,
+    borderColor:BLACK_COLOR,
+    borderStyle:'solid',
+    boxShadow:'4px 4px 0 0 rgba(0,0,0,0.9)'
+  },
+  btnNoBdShadow:{
+    boxShadow:'4px 4px 0 0 rgba(0,0,0,0.9)'
+  },
+  mainShadow:{
+    borderWidth:1,
+    borderColor:BLACK_COLOR,
+    borderStyle:'solid',
+    boxShadow:'5px 5px 0 0 rgba(0,0,0,0.9)'
+  }
+})
+
 export const commonBtn = StyleSheet.create({
   btnBox : {
     width: "100%",
