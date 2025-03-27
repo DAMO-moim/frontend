@@ -240,22 +240,22 @@ export const RegisterScreen = () => {
           value={name}
           onChangeText={handleNameChange}
           error={errors.name}
-          description={errors.name ? errors.name : ''}
+          description={errors.name ? <Text>{errors.name}</Text> : ''}
         />
         <InputWithLabel
           label="이메일"
           value={email}
           onChangeText={handleEmailChange}
           error={errors.email}
-          description={errors.email ? errors.email : ''}
+          description={errors.email ? <Text>{errors.email}</Text> : ''}
         />
         <PasswordInput
           label="비밀번호"
           value={password}
           onChangeText={handlePasswordChange} // 입력 핸들러 연결
           error={errors.password}
-          description={errors.password ? errors.password : ''}
-        />;
+          description={errors.password ? <Text>{errors.password}</Text> : ''}
+        />
         <PasswordInput
           label="비밀번호 확인"
           value={confirmPassword}
@@ -269,7 +269,7 @@ export const RegisterScreen = () => {
           onChangeText={handlePhoneChange}
           keyboardType="phone-pad"
           error={errors.phone}
-          description={errors.phone ? errors.phone : ''}
+          description={errors.phone ? <Text>{errors.phone}</Text> : ''}
         />
 
         <View style={styles.selectBox}>
