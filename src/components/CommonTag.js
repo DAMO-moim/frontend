@@ -1,9 +1,9 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 
-const CommonTag = ({ name, size, color, onPress, showCloseButton }) => {
+const CommonTag = ({ name, size, color, onPress, showCloseButton , containerStyle}) => {
     return (
-        <View style={[styles.tagContainer, { alignSelf: 'flex-start' }]}>
+        <View style={[styles.tagContainer, { alignSelf: 'flex-start' }, containerStyle]}>
             {/* 태그 이름 */}
             <Text style={[styles.tagName, { fontSize: size, color }]}>
                 { name }
