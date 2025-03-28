@@ -25,20 +25,22 @@ const BoardCard = ({
             />
             <Text style={styles.username}>{username}</Text>
           </View>
-          {likeCount && <Text style={styles.likeCount}>❤️ {likeCount = 2}</Text>}
+          {likeCount && <Text style={styles.likeCount}>❤️ {likeCount}</Text>}
         </View>
 
         {/* 게시글 제목 */}
         <Text style={styles.title}>{title}</Text>
 
-        {/* 게시글 이미지 */}
-        <View style={styles.imageContainer}>
-          <Image 
-            source={postImage || require('../../assets/images/loginLogo.png')}
-            style={styles.postImage}
-            resizeMode="contain"
-          />
-        </View>
+        {/* 게시글 이미지 - postImage가 있을 때만 렌더링 */}
+        {postImage !== null && (
+          <View style={styles.imageContainer}>
+            <Image 
+              source={postImage}
+              style={styles.postImage}
+              resizeMode="contain"
+            />
+          </View>
+        )}
 
         {/* 게시글 내용 */}
         <Text style={styles.content}>{content}</Text>
