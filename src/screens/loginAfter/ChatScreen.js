@@ -98,8 +98,8 @@ function ChatScreen({ navigation }) {
           onPress={() =>
             navigation.navigate('ChatRooms', {
               chatroomId: category.chatroomId,
-              categoryId: category.categoryId, 
-              categoryName: getCategoryName(category.categoryId)
+              categoryId: category.categoryId,
+              categoryName: getCategoryName(category.categoryId),
             })
           }
         />

@@ -3,30 +3,42 @@ import { SafeAreaView } from 'react-native';
 import { fetchCategories } from '../../api/queries/categoryService';
 import CategoryIcons from '../../components/calendar/CategoryIcons';
 import ScheduleCalendar from './ScheduleCalendar';
-
+import { instance } from '../../api/axiosInstance';
 
 function MainScreen({ memberId, token }) {
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
+  // 카테고리 데이터 로드
   useEffect(() => {
     const loadCategories = async () => {
       const data = await fetchCategories(memberId, token);
       setCategories(data);
+
+      if (data.length > 0) {
+        setSelectedCategory(data[0].categoryId); // 첫 번째 카테고리를 기본값으로 설정
+      }
     };
-    
+
     loadCategories();
   }, []);
 
+  const handleSelectCategory = (categoryId) => {
+    setSelectedCategory(categoryId);
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <CategoryIcons categories={categories} />
-      {/* 첫 번째 카테고리의 이름으로 달력을 표시 */}
-      {categories.length > 0 && (
-        <ScheduleCalendar categoryName={categories[0].categoryName} memberId={memberId} token={token} />
+      <CategoryIcons
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onSelectCategory={handleSelectCategory}
+      />
+      {selectedCategory && (
+        <ScheduleCalendar categoryId={selectedCategory} token={token} />
       )}
     </SafeAreaView>
   );
 }
 
 export default MainScreen;
-
