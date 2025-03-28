@@ -14,7 +14,8 @@ const MyPageScreen = () => {
     const handleLogout = async () => {
       try {
         await logout(); // 로그아웃 실행
-        navigation.navigate('Login'); // 로그아웃 후 로그인 화면으로 이동
+        // navigation.navigate('Login'); // 로그아웃 후 로그인 화면으로 이동
+        navigation.navigate('MainTabs', { screen: 'Login' });
       } catch (error) {
         console.error('Logout failed:', error);
       }

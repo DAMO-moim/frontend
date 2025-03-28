@@ -3,15 +3,28 @@ import { BLACK_COLOR, ERROR_COLOR, G_DARKER_COLOR, G_LIGHT_COLOR, NAV_BAR_COLOR,
 
 export const commonStyles = StyleSheet.create({
   container: {
+    width:'100%',
     fontFamily: 'NotoSansKR-Regular',
-    // flex: 1,
-    justifyContent: 'center',
+    minHeight:'100%',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: PRIMARY_BACK_COLOR,
     padding: 16,
+  },
+  centerContainer:{
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  boxContainer:{
+    width:'100%',
+    paddingVertical:16,
     // borderWidth:1,
     // borderColor:BLACK_COLOR,
-    width:'100%'
+    height:'100%',
+    display:'flex',
+    flexDirection:'column',
+    justifyContent:'space-between',
+    alignContent:'space-between',
   },
   header: {
     backgroundColor: NAV_BAR_COLOR,
@@ -44,6 +57,31 @@ export const homeStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: PRIMARY_BACK_COLOR,
     height:'100%'
+  }
+});
+
+export const commonCircle = StyleSheet.create({
+  outer: {
+    width: 11, 
+    height: 11,
+    borderRadius: 100, 
+    borderColor: '#66D3A5', 
+    borderWidth: 1,
+    position:'relative',
+    marginTop:4,
+  },
+  inner:{
+    width: 6, 
+    height: 6,
+    position:'absolute',
+    top:'50%',
+    left:'50%',
+    transform: [
+      { translateX: '-52%' }, 
+      { translateY: '-52%' }, 
+    ],
+    borderRadius: 100, 
+    backgroundColor: '#66D3A5', 
   }
 })
 
