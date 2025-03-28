@@ -103,7 +103,8 @@ const Stack = createStackNavigator();
           <>
             {/* 로그인 후 + 카테고리 선택 안 했을 때는 SelectCategories로 이동 */}
             <Stack.Screen name="SelectCategories" component={SelectCategories} />
-            <Stack.Screen name="MainTabs" component={TabNavigator} options={{ headerShown: false }} />
+            {/* options={{ headerShown: false }}  */}
+            <Stack.Screen name="MainTabs" component={TabNavigator} />
             <Stack.Screen name="Chat" component={ChatScreen} />
             <Stack.Screen name="ChatRooms" component={ChatRoomsScreen} />
           </>
