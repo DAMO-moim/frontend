@@ -46,9 +46,6 @@ export const LoginScreen = () => {
     }
   };
 
-  
-  
-
   return (
     <View style={[commonStyles.container, styles.container]}>
       <Image source={require('../../../assets/images/loginLogo.png')} style={styles.image} />
