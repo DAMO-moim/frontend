@@ -39,7 +39,8 @@ const Stack = createStackNavigator();
       >
         {isLoggedIn ? (
           <>
-            <Tab.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
+          {/* options={{ headerShown: false }}  */}
+            <Tab.Screen name="Main" component={MainScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
             <Tab.Screen name="Chat" component={ChatScreen} />
             <Tab.Screen name="MyPage" component={MyPageScreen} />
@@ -104,7 +105,7 @@ const Stack = createStackNavigator();
             {/* 로그인 후 + 카테고리 선택 안 했을 때는 SelectCategories로 이동 */}
             <Stack.Screen name="SelectCategories" component={SelectCategories} />
             {/* options={{ headerShown: false }}  */}
-            <Stack.Screen name="MainTabs" component={TabNavigator} />
+            <Stack.Screen name="MainTabs" component={TabNavigator}  options={{ headerShown: false }}/>
             <Stack.Screen name="Chat" component={ChatScreen} />
             <Stack.Screen name="ChatRooms" component={ChatRoomsScreen} />
           </>

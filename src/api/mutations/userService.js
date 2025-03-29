@@ -34,6 +34,8 @@ export const loginUser = async (credentials) => {
     await AsyncStorage.setItem('accessToken', accessToken);
     await AsyncStorage.setItem('refreshToken', refreshToken);
 
+    console.log("accessToken ===", accessToken);
+
     // 사용자 정보 조회 (필수 쿼리 파라미터 추가)
     // const usersResponse = await instance.get("/members", {
     //   headers: {
