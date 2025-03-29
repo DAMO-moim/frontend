@@ -56,6 +56,7 @@ const MyPageScreen = () => {
           text="카테고리 수정"
           style={[styles.menuBar, commonShadow.btnNoBdShadow]}
           iconWrapperStyle={{ backgroundColor: PINK_LIGHT_COLOR }}
+          onPress={() => {navigation.navigate('카테고리 수정')}}
         />
         <MenuBar
           image={require('../../../assets/images/mypage/mypageIcon4.png')}

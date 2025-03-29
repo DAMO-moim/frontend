@@ -8,6 +8,8 @@ export const getCurrentUser = async () => {
   const memberId = await AsyncStorage.getItem("memberId");
   const token = await AsyncStorage.getItem("accessToken");
 
+  console.log("memberId, token =============", memberId, token)
+
   if (!token || !memberId) return null;
 
   try {

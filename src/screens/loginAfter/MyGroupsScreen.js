@@ -54,10 +54,10 @@ const MyGroupsScreen = ({ memberId, token }) => {
             onChange={(value) => setSelectedCategory(value)}
             options={[
               { label: '전체', value: '전체' },
-              ...categories.map((category) => ({
+              ...(Array.isArray(categories) ? categories.map((category) => ({
                 label: category.categoryName,
                 value: category.categoryId,
-              })),
+              })) : []), // Safely handle undefined or non-array categories
             ]}
           />
 
