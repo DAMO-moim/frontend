@@ -18,6 +18,7 @@ import { SuccessFindIdScreen } from '../screens/loginBefore/SuccessFindId';
 import MyPageScreen from '../screens/loginAfter/MyPageScreen';
 import ChatScreen from '../screens/loginAfter/ChatScreen';
 import ChatRoomsScreen from '../screens/loginAfter/ChatRoomsScreen';
+import MyGroupsScreen from '../screens/loginAfter/MyGroupsScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -108,6 +109,8 @@ const Stack = createStackNavigator();
             <Stack.Screen name="MainTabs" component={TabNavigator}  options={{ headerShown: false }}/>
             <Stack.Screen name="Chat" component={ChatScreen} />
             <Stack.Screen name="ChatRooms" component={ChatRoomsScreen} />
+            <Stack.Screen name="내 모임 조회" component={MyGroupsScreen} />
+
           </>
         )}
       </Stack.Navigator>
