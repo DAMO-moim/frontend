@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
-import Checkbox from 'expo-checkbox';
+import { View, Text, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
 import * as userService from '../../api/mutations/userService';
@@ -13,6 +12,7 @@ import { commonRadio, commonStyles } from '../../constants/styles';
 import { CommonRadio } from '../../components/CommonRadio';
 import { instance } from '../../api/axiosInstance';
 import CommonCheckBox from '../../components/CommonCheckBox';
+import { style } from 'framer-motion/client';
 
 // 이메일 유효성 검사 정규식
 const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -42,23 +42,18 @@ const checkDuplicate = async (type, value) => {
     } else if (response.status === 409) {
       return true; // 중복됨
     } else {
-      console.warn(`Unexpected status code: ${response.status}`);
       throw new Error('Unexpected API response.');
     }
   } catch (error) {
     if (error.response && error.response.status === 409) {
       return true; // 중복됨
     } else if (error.response && error.response.status === 400) {
-      console.error('Bad request:', error.response.data);
       throw new Error('Invalid input data.');
     } else {
-      console.error(`❌ ${type} 중복 검사 실패:`, error);
       throw new Error('Network error occurred. Please try again later.');
     }
   }
 };
-
-
 
 export const RegisterScreen = () => {
   const navigation = useNavigation();
@@ -190,16 +185,9 @@ export const RegisterScreen = () => {
     onError: (error) => setErrors({ server: error.response?.data || '회원가입에 실패했습니다.' }),
   });
 
-  // const handleSubmit = () => {
-  //   if (!isFormValid) return;
-  //   const data = { email, password, name, phoneNumber: phone, birth, gender, memberCategories: [] };
-  //   registerMutation.mutate(data);
-  // };
-
   const handleSubmit = () => {
     if (!isFormValid) return;
   
-    // Prepare initial registration data
     const initialData = {
       email,
       password,
@@ -226,7 +214,6 @@ export const RegisterScreen = () => {
     }
   };
   
-
   // const handlePhoneChange = (text) => {
   //   const formattedPhone = formatPhoneNumber(text);
   //   setPhone(formattedPhone);
@@ -235,68 +222,73 @@ export const RegisterScreen = () => {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={[styles.container, commonStyles.container]} keyboardShouldPersistTaps="handled">
-        <InputWithLabel
-          label="닉네임"
-          value={name}
-          onChangeText={handleNameChange}
-          error={errors.name}
-          description={errors.name ? <Text>{errors.name}</Text> : ''}
-        />
-        <InputWithLabel
-          label="이메일"
-          value={email}
-          onChangeText={handleEmailChange}
-          error={errors.email}
-          description={errors.email ? <Text>{errors.email}</Text> : ''}
-        />
-        <PasswordInput
-          label="비밀번호"
-          value={password}
-          onChangeText={handlePasswordChange} // 입력 핸들러 연결
-          error={errors.password}
-          description={errors.password ? <Text>{errors.password}</Text> : ''}
-        />
-        <PasswordInput
-          label="비밀번호 확인"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          error={passwordError}
-          description={passwordError}
-        />
-        <InputWithLabel
-          label="전화번호"
-          value={phone}
-          onChangeText={handlePhoneChange}
-          keyboardType="phone-pad"
-          error={errors.phone}
-          description={errors.phone ? <Text>{errors.phone}</Text> : ''}
-        />
-
-        <View style={styles.selectBox}>
-          <View style={commonRadio.container}>
-            <CommonRadio value={gender} onChange={setGender} options={genderOptions} />
-          </View>
-          <RNPickerSelect
-            onValueChange={setBirth}
-            value={birth}
-            style={pickerStyle}
-            items={[...Array(35)].map((_, i) => {
-              const year = 1990 + i;
-              return { label: String(year), value: String(year) };
-            })}
+        <View style={commonStyles.boxContainer}>
+        <View style={styles.topBox}>
+          <InputWithLabel
+            label="닉네임"
+            value={name}
+            onChangeText={handleNameChange}
+            error={errors.name}
+            description={errors.name ? <Text>{errors.name}</Text> : ''}
           />
+          <InputWithLabel
+            label="이메일"
+            value={email}
+            onChangeText={handleEmailChange}
+            error={errors.email}
+            description={errors.email ? <Text>{errors.email}</Text> : ''}
+          />
+          <PasswordInput
+            label="비밀번호"
+            value={password}
+            onChangeText={handlePasswordChange} // 입력 핸들러 연결
+            error={errors.password}
+            description={errors.password ? <Text>{errors.password}</Text> : ''}
+          />
+          <PasswordInput
+            label="비밀번호 확인"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            error={passwordError}
+            description={passwordError}
+          />
+          <InputWithLabel
+            label="전화번호"
+            value={phone}
+            onChangeText={handlePhoneChange}
+            keyboardType="phone-pad"
+            error={errors.phone}
+            description={errors.phone ? <Text>{errors.phone}</Text> : ''}
+          />
+
+          <View style={styles.selectBox}>
+            <View style={commonRadio.container}>
+              <CommonRadio value={gender} onChange={setGender} options={genderOptions} />
+            </View>
+            <RNPickerSelect
+              onValueChange={setBirth}
+              value={birth}
+              style={pickerStyle}
+              items={[...Array(35)].map((_, i) => {
+                const year = 1990 + i;
+                return { label: String(year), value: String(year) };
+              })}
+            />
+          </View>
         </View>
 
-        <CommonCheckBox
-        label="개인정보 동의"
-        value={agreed}
-        onValueChange={setAgreed}
-        error={errors.agreed}
-        errorMessage={errors.errorMessage}
-      />
-        
-
-        <CustomButton title="회원가입 완료" onPress={handleSubmit} disabled={!isFormValid || registerMutation.isLoading} />
+          <View style={styles.botBox}>
+            <CommonCheckBox
+              label="개인정보 동의"
+              value={agreed}
+              onValueChange={setAgreed}
+              error={errors.agreed}
+              errorMessage={errors.errorMessage}
+            />
+            
+            <CustomButton title="회원가입 완료" onPress={handleSubmit} disabled={!isFormValid || registerMutation.isLoading} />
+          </View>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -331,11 +323,42 @@ const pickerStyle = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  container: { paddingVertical: 32, display: 'flex', flexDirection: 'column', gap: 16 },
-  checkboxContainer: {  width:'100%',flexDirection: 'row', alignItems: 'center', marginTop: 10 },
-  checkboxLabel: { marginLeft: 8, fontSize: 14 },
-  errorText: { color: 'red', fontSize: 12, marginTop: 5 },
-  selectBox: { width:'100%', flexDirection: 'row', justifyContent: 'space-between' },
+  container: { 
+    paddingVertical: 32, 
+  },
+  
+  topBox:{
+    display: 'flex', 
+    flexDirection: 'column', 
+    gap: 16,
+  },
+  botBox:{
+    //  borderWidth:1,
+    // borderColor:BLACK_COLOR,
+    display: 'flex', 
+    flexDirection: 'column', 
+    gap: 16,
+  },
+  checkboxContainer: {  
+    width:'100%',
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginTop: 10 
+  },
+  checkboxLabel: {
+    marginLeft: 8, 
+    fontSize: 14 
+  },
+  errorText: { 
+    color: 'red', 
+    fontSize: 12, 
+    marginTop: 5 
+  },
+  selectBox: { 
+    width:'100%', 
+    flexDirection: 'row', 
+    justifyContent: 'space-between' 
+  },
 });
 
 export default RegisterScreen;

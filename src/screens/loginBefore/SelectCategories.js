@@ -1,17 +1,18 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import CategoryTag from '../../components/CategoryTag';
 import { CustomButton } from '../../components/CustomButton';
 import * as userService from '../../api/mutations/userService';
-import { commonStyles } from '../../constants/styles';
+import { commonCircle, commonStyles } from '../../constants/styles';
 import { AuthContext } from '../../contexts/AuthProvider'; 
+import { BLACK_COLOR, G_DARK_COLOR, G_DARKER_COLOR } from '../../constants/colors';
 
 const categories = [
-  '사교/인맥', '독서', '언어', '요리', '스포츠',
-  '음악', '악기', '게임', '차',
-  '댄스', '사진', '여행', '반려동물',
+  '스포츠', '언어', '악기', '댄스', '반려동물',
+  '사교/인맥', '요리/레시피', '게임/오락', '사진/영상',
+  '독서', '노래', '자동차', '여행',
 ];
 
 const SelectCategories = () => {
@@ -75,55 +76,62 @@ const SelectCategories = () => {
   };
 
   return (
-    <View style={[styles.container, commonStyles.container]}>
-      {/* Category list */}
-      <View style={styles.categoryGrid}>
-        {categories.map((category, index) => (
-          <CategoryTag
-            key={index}
-            name={category}
-            size={14}
-            color="black"
-            onSelect={() => toggleCategory(category)}
-            selectedOrder={selectedCategories.includes(category) ? 
-              selectedCategories.indexOf(category) + 1 : null}
-            isDisabled={
-              selectedCategories.length >= 3 && 
-              !selectedCategories.includes(category)
-            }
-            buttonWidth={BUTTON_WIDTH}
-          />
-        ))}
-      </View>
+    <ScrollView contentContainerStyle={[styles.container,commonStyles.container]}>
+      <View style={commonStyles.boxContainer}>
+        <View >
+          {/* Notice */}
+          <View style={styles.noticeContainer}>
+          <View style={commonCircle.outer} ><View style={commonCircle.inner} ></View></View>
+            <Text style={styles.noticeText}>
+               안내사항{'\n'}
+              - 관심사는 최소 1개 최대 3개 선택 가능합니다.{'\n'}
+              - 처음 선택한 관심사가 1순위로 지정됩니다.{'\n'}
+              - 카테고리는 마이페이지에서 수정이 가능합니다.
+            </Text>
+          </View>
 
-      {/* Notice */}
-      <View style={styles.noticeContainer}>
-        <Text style={styles.noticeText}>
-          안내사항{'\n'}
-          - 관심사는 최소 1개 최대 3개 선택 가능합니다.{'\n'}
-          - 처음 선택한 관심사가 1순위로 지정됩니다.{'\n'}
-          - 카테고리는 마이페이지에서 수정이 가능합니다.
-        </Text>
+          {/* Category list */}
+          <View style={styles.categoryGrid}>
+            {categories.map((category, index) => (
+              <CategoryTag
+                key={index}
+                name={category}
+                size={14}
+                color="black"
+                onSelect={() => toggleCategory(category)}
+                selectedOrder={selectedCategories.includes(category) ? 
+                  selectedCategories.indexOf(category) + 1 : null}
+                isDisabled={
+                  selectedCategories.length >= 3 && 
+                  !selectedCategories.includes(category)
+                }
+                buttonWidth={BUTTON_WIDTH}
+              />
+            ))}
+          </View>
+        </View>
+      
+        <CustomButton 
+          title="선택 완료"
+          onPress={handleCompleteSelection}
+          disabled={selectedCategories.length === 0} 
+        />
       </View>
-
-      <CustomButton 
-        title="선택 완료"
-        onPress={handleCompleteSelection}
-        disabled={selectedCategories.length === 0} 
-      />
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    flex: 1,
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 32,
-  },
+  // container: {
+  //   width: '100%',
+  //   flex: 1,
+  //   alignItems: 'center',
+  //   paddingHorizontal: 16,
+  //   paddingVertical: 32,
+  // },
   categoryGrid: {
+    // borderWidth:1,
+    // borderColor:BLACK_COLOR,
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -136,13 +144,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     width: '100%',
     alignItems: 'flex-start',
+    flexDirection:'row',
+    gap:4
   },
   noticeText: {
-    fontSize: 12,
-    color: '#666666',
+    fontSize: 14,
+    color: G_DARKER_COLOR,
     lineHeight: 18,
     textAlign: 'left',
-    marginTop: 14,
   },
 });
 
