@@ -1,5 +1,173 @@
+// import React, { useState, useEffect } from 'react';
+// import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+// import { Calendar } from 'react-native-calendars';
+// import { instance } from '../../api/axiosInstance';
+
+// const ScheduleCalendar = ({ categoryId, token }) => {
+//   const [schedules, setSchedules] = useState([]);
+//   const [selectedDate, setSelectedDate] = useState(null);
+//   const [modalVisible, setModalVisible] = useState(false);
+//   const [modalData, setModalData] = useState([]);
+
+//   // 일정 조회 API 호출
+//   const fetchSchedules = async () => {
+//     try {
+//       const response = await instance.get(`/schedules`, {
+//         headers: { Authorization: `Bearer ${token}` },
+//         params: { page: 1, size: 10, categoryId },
+//       });
+//       setSchedules(response.data.data);
+//     } catch (error) {
+//       console.error('Error fetching schedules:', error.response?.data || error.message);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (categoryId) fetchSchedules();
+//   }, [categoryId]);
+
+//   // 날짜 표시 스타일 생성
+//   const markedDates = {};
+//   schedules.forEach((schedule) => {
+//     const { startSchedule, endSchedule, scheduleStatus } = schedule;
+
+//     if (scheduleStatus === 'SINGLE') {
+//       // 단일 일정
+//       markedDates[startSchedule] = {
+//         customStyles: {
+//           container: { backgroundColor: '#FECBD8', borderRadius: 5 },
+//           text: { color: '#333333', fontWeight: 'bold' },
+//         },
+//       };
+//     } else if (scheduleStatus === 'CONTINUOUS') {
+//       // 연속 일정
+//       let currentDate = new Date(startSchedule);
+//       const endDate = new Date(endSchedule);
+
+//       while (currentDate <= endDate) {
+//         const formattedDate = currentDate.toISOString().split('T')[0];
+//         markedDates[formattedDate] = {
+//           customStyles: {
+//             container: { backgroundColor: '#DFC9FA', borderRadius: 5 },
+//             text: { color: 'black' },
+//           },
+//         };
+//         currentDate.setDate(currentDate.getDate() + 1);
+//       }
+//     } else if (scheduleStatus === 'RECURRING') {
+//       // 정기 일정
+//       markedDates[startSchedule] = markedDates[startSchedule] || { customStyles: {} };
+//       markedDates[startSchedule].customStyles.container = { backgroundColor: '#FFEAB1', borderRadius: 5 };
+//       markedDates[startSchedule].customStyles.text = { color: 'black', fontWeight: 'bold' };
+//     }
+//   });
+
+//   // 날짜 클릭 핸들러
+//   const handleDayPress = (day) => {
+//     const filteredSchedules = schedules.filter(
+//       (schedule) =>
+//         schedule.startSchedule === day.dateString ||
+//         schedule.endSchedule === day.dateString ||
+//         (new Date(schedule.startSchedule) <= new Date(day.dateString) &&
+//           new Date(schedule.endSchedule) >= new Date(day.dateString))
+//     );
+
+//     if (filteredSchedules.length > 0) {
+//       setModalData(filteredSchedules);
+//       setModalVisible(true);
+//     }
+//     setSelectedDate(day.dateString);
+//   };
+
+//   return (
+//     <View style={styles.container}>
+//       {/* 캘린더 */}
+//       <Calendar
+//         markingType="custom"
+//         markedDates={{
+//           ...markedDates,
+//           [selectedDate]: { selected: true, selectedColor: '#FFC107' },
+//         }}
+//         onDayPress={handleDayPress}
+//         theme={{
+//           backgroundColor: '#F8F8F8',
+//           calendarBackground: '#F8F8F8',
+//           textSectionTitleColor: '#333333',
+//           todayTextColor: '#FF5722',
+//           arrowColor: '#FFC107',
+//           monthTextColor: 'black',
+//           textDayFontWeight: 'bold',
+//         }}
+//         style={{ borderRadius: 18 }}
+//       />
+
+//       {/* 모달 */}
+//       <Modal visible={modalVisible} transparent animationType="slide">
+//         <View style={styles.modalContainer}>
+//           <View style={styles.modalContent}>
+//             <Text style={styles.modalTitle}>일정 정보</Text>
+//             {modalData.map((schedule, index) => (
+//               <View key={index} style={styles.scheduleItem}>
+//                 <Text>시작 날짜: {schedule.startSchedule}</Text>
+//                 <Text>종료 날짜: {schedule.endSchedule}</Text>
+//                 <Text>유형: {schedule.scheduleStatus}</Text>
+//               </View>
+//             ))}
+//             <TouchableOpacity onPress={() => setModalVisible(false)}>
+//               <Text style={styles.closeButton}>닫기</Text>
+//             </TouchableOpacity>
+//           </View>
+//         </View>
+//       </Modal>
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#EDEDED',
+//     paddingTop: 20,
+//     paddingHorizontal: 10,
+//   },
+//   modalContainer: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: 'rgba(0,0,0,0.5)',
+//   },
+//   modalContent: {
+//     backgroundColor: '#FFF',
+//     paddingHorizontal: 20,
+//     paddingVertical: 30,
+//     borderRadius: 10,
+//     width: '80%',
+//     alignItems: 'center',
+//   },
+//   modalTitle: {
+//     fontSize: 18,
+//     fontWeight: 'bold',
+//     marginBottom: 20,
+//   },
+//   scheduleItem: {
+//     marginBottom: 10,
+//     paddingHorizontal: 10,
+//     paddingVertical: 5,
+//     backgroundColor: '#F0F0F0',
+//     borderRadius: 5,
+//     width: '100%',
+//   },
+//   closeButton: {
+//     color: '#FF5722',
+//     marginTop: 20,
+//     fontWeight: 'bold',
+//   },
+// });
+
+// export default ScheduleCalendar;
+
 import React, { useState, useEffect } from 'react';
-import { View, Modal, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { instance } from '../../api/axiosInstance';
 
@@ -9,7 +177,10 @@ const ScheduleCalendar = ({ categoryId, token }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState([]);
 
-  // 일정 조회 API 호출
+  useEffect(() => {
+    if (categoryId) fetchSchedules();
+  }, [categoryId]);
+
   const fetchSchedules = async () => {
     try {
       const response = await instance.get(`/schedules`, {
@@ -22,39 +193,40 @@ const ScheduleCalendar = ({ categoryId, token }) => {
     }
   };
 
-  useEffect(() => {
-    if (categoryId) fetchSchedules();
-  }, [categoryId]);
-
   const markedDates = {};
-  
-  schedules.forEach(schedule => {
+  schedules.forEach((schedule) => {
     const { startSchedule, endSchedule, scheduleStatus } = schedule;
+    let color;
+
     if (scheduleStatus === 'SINGLE') {
+      color = '#FECBD8';
       markedDates[startSchedule] = {
         customStyles: {
-          container: { backgroundColor: '#F8C8DC', borderRadius: 5 },
-          text: { color: 'black' },
+          container: { backgroundColor: color, borderRadius: 5 },
+          text: { color: 'black', fontWeight: 'bold' },
         },
       };
     } else if (scheduleStatus === 'CONTINUOUS') {
+      color = '#DFC9FA';
       let currentDate = new Date(startSchedule);
       const endDate = new Date(endSchedule);
       while (currentDate <= endDate) {
         const formattedDate = currentDate.toISOString().split('T')[0];
         markedDates[formattedDate] = {
           customStyles: {
-            container: { backgroundColor: '#A991F7', borderRadius: 10 },
+            container: { backgroundColor: color, borderRadius: 5 },
             text: { color: 'black' },
           },
         };
         currentDate.setDate(currentDate.getDate() + 1);
       }
     } else if (scheduleStatus === 'RECURRING') {
-      markedDates[startSchedule] = markedDates[startSchedule] || { customStyles: {} };
-      markedDates[startSchedule].customStyles.text = {
-        color: '#FFC107',
-        fontWeight: 'bold',
+      color = '#FFEAB1';
+      markedDates[startSchedule] = {
+        customStyles: {
+          container: { backgroundColor: color, borderRadius: 5 },
+          text: { color: 'black', fontWeight: 'bold' },
+        },
       };
     }
   });
@@ -73,7 +245,7 @@ const ScheduleCalendar = ({ categoryId, token }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Calendar
         markingType="custom"
         markedDates={{
@@ -82,18 +254,16 @@ const ScheduleCalendar = ({ categoryId, token }) => {
         }}
         onDayPress={handleDayPress}
         theme={{
-          backgroundColor: '#FFF9E5',
-          calendarBackground: '#FFF9E5',
+          backgroundColor: '#F8F8F8',
+          calendarBackground: '#F8F8F8',
           textSectionTitleColor: 'black',
-          selectedDayBackgroundColor: '#FFC107',
           todayTextColor: '#FF5722',
           arrowColor: '#FFC107',
           monthTextColor: 'black',
           textDayFontWeight: 'bold',
         }}
       />
-      
-      {/* 모달 */}
+
       <Modal visible={modalVisible} transparent animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -105,7 +275,9 @@ const ScheduleCalendar = ({ categoryId, token }) => {
                 <Text>유형: {schedule.scheduleStatus}</Text>
               </View>
             ))}
-            <Text onPress={() => setModalVisible(false)} style={styles.closeButton}>닫기</Text>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text style={styles.closeButton}>닫기</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -114,6 +286,12 @@ const ScheduleCalendar = ({ categoryId, token }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#EDEDED',
+    paddingTop: 20,
+    paddingHorizontal: 10,
+  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -121,7 +299,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
-    width: '80%',
     backgroundColor: '#FFF',
     padding: 20,
     borderRadius: 10,

@@ -6,15 +6,26 @@ export const instance = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-instance.interceptors.request.use(async (config) => {
-  const token = await AsyncStorage.getItem("accessToken");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-}, (error) => {
-  return Promise.reject(error);
-});
+// instance.interceptors.request.use(async (config) => {
+//   const token = await AsyncStorage.getItem("accessToken");
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// }, (error) => {
+//   return Promise.reject(error);
+// });
+
+instance.interceptors.request.use(
+  async (config) => {
+    const accessToken = await AsyncStorage.getItem('accessToken'); // 토큰 가져오기
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 
 // instance.interceptors.response.use(

@@ -12,10 +12,13 @@ export const useUser = () => {
 
   // user 상태를 useQuery로 관리
   const { data: user, isLoading } = useQuery({
+    
     queryKey: ["user"],
     queryFn: getUserService.getCurrentUser,
     staleTime: Infinity,
   });
+
+  console.log("console.log(user)================= ",user);
 
   const loginMutation = useMutation({
     mutationFn: userService.loginUser,
