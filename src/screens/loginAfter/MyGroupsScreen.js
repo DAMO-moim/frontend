@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
-import GroupBox from '../../components/GroupBox'; // GroupBox 컴포넌트를 import
-import { BLACK_COLOR } from '../../constants/colors';
+import GroupBox from '../../components/GroupBox'; // GroupBox 컴포넌트 import
+import { useState } from 'react';
+import { CommonRadio } from '../../components/CommonRadio';
+import { commonStyles } from '../../constants/styles';
 
-const MyGroups = () => {
+const MyGroupsScreen = () => {
+  const [selectedCategory, setSelectedCategory] = useState('전체');
   // 데이터 배열
   const groups = [
     {
@@ -44,11 +47,30 @@ const MyGroups = () => {
     },
   ];
 
+  // 클릭 이벤트 핸들러
+  const handlePress = (groupId) => {
+    console.log(`Group ${groupId} clicked!`);
+    // 네비게이션 또는 다른 동작 추가 가능
+  };
+
+  // 라디오 버튼 옵션
+  const radioOptions = [
+    { label: '전체', value: '전체' },
+    { label: '스포츠', value: '스포츠' },
+    { label: '사교/인맥', value: '사교/인맥' },
+    { label: '테스트', value: '테스트' },
+  ];
+
   return (
     <View style={styles.container}>
+      <CommonRadio
+        value={selectedCategory}
+        onChange={(value) => setSelectedCategory(value)}
+        options={radioOptions}
+      />
       <FlatList
-        data={groups} // 데이터 배열
-        keyExtractor={(item) => item.id} // 고유 키 설정
+        data={groups}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <GroupBox
             image={item.image}
@@ -57,9 +79,9 @@ const MyGroups = () => {
             isLeader={item.isLeader}
             currentCount={item.currentCount}
             maxCount={item.maxCount}
+            onPress={() => handlePress(item.id)} // 클릭 이벤트 전달
           />
         )}
-        contentContainerStyle={styles.listContainer} // 리스트 스타일
         showsVerticalScrollIndicator={false} // 스크롤바 숨기기
         ListFooterComponent={<View style={{ height: 20 }} />} // 하단 여백 추가
       />
@@ -69,16 +91,10 @@ const MyGroups = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F7F7F7', // 전체 배경색
-    paddingHorizontal: 10, // 좌우 여백 추가
-  },
-  listContainer: {
-    paddingVertical: 10, // 상하 여백 추가
-    paddingHorizontal: 10, // FlatList 내부 항목 좌우 패딩 추가 (잘림 방지)
-  },
+    ...commonStyles.container,
+    justifyContent: 'flex-start', // 내용을 위쪽에 배치
+    alignItems: 'stretch', // 내용을 전체 너비로 확장
+  }
 });
 
-export default MyGroups;
+export default MyGroupsScreen;
