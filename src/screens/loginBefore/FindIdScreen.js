@@ -7,6 +7,7 @@ import InputWithLabel from '../../components/InputWithLabel';
 import { CustomButton } from '../../components/CustomButton';
 // import { formatPhoneNumber } from '../../utils/formatters'; // 전화번호 포맷팅 함수가 별도 파일에 있다면 가져옵니다.
 import { commonStyles } from '../../constants/styles';
+import Toast from 'react-native-toast-message';
 
 // 닉네임과 전화번호 유효성 검사 함수
 const isValidName = (name) => name.length > 0 && name.length <= 8;
@@ -33,7 +34,12 @@ export const FindIdScreen = () => {
     },
     onError: (error) => {
       console.error('아이디 찾기에 실패했습니다:', error.response?.data || error.message);
-      alert('아이디 찾기에 실패했습니다.');
+      // alert('아이디 찾기에 실패했습니다.');
+      Toast.show({
+        type: 'error',
+        text1: '아이디 찾기 실패!',
+        text2: error.message,
+      });
     },
   });
 

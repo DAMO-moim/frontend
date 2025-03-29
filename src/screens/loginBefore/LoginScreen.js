@@ -8,6 +8,8 @@ import { useUser } from '../../hooks/useUser';
 import { commonBtn, commonStyles } from '../../constants/styles';
 import { BLACK_COLOR } from '../../constants/colors';
 import { Link, useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+
 
 const isValidUsername = (username) => /\S+@\S+\.\S+/.test(username);
 
@@ -42,7 +44,12 @@ export const LoginScreen = () => {
       alert('로그인 성공!');
     } catch (error) {
       console.log(error.response?.data);
-      alert(error.message || '로그인 실패!');
+      Toast.show({
+        type: 'error',
+        text1: '로그인 실패!',
+        text2: error.message,
+      });
+      // alert(error.message || '로그인 실패!');
     }
   };
 
