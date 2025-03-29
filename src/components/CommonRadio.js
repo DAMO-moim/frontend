@@ -1,14 +1,15 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { RadioGroup, RadioButton } from 'react-native-ui-lib';
-import { commonRadio } from "../constants/styles";
+import { commonInput, commonRadio } from "../constants/styles";
 import { BLACK_COLOR } from "../constants/colors";
 
 
-export const CommonRadio = ({ value, onChange, options = [] }) => {
+export const CommonRadio = ({ label,value, onChange, options = [] , containerStyle,groupStyle}) => {
   return (
-    <View style={commonRadio.container}>
-      <RadioGroup initialValue={value} onValueChange={onChange} style={commonRadio.radioGroup}>
+    <View style={[commonRadio.container, containerStyle]}>
+      {label && <Text style={commonInput.label}>{label}</Text>}
+      <RadioGroup initialValue={value} onValueChange={onChange} style={[commonRadio.radioGroup, groupStyle]}>
         {options.map((option) => (
           <RadioButton
             key={option.value}

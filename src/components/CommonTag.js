@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 
-const CommonTag = ({ name, size, color, onPress, showCloseButton , containerStyle}) => {
+const CommonTag = ({ name, size, color, onPress, showCloseButton ,closeButtonStyle, containerStyle}) => {
     return (
         <View style={[styles.tagContainer, { alignSelf: 'flex-start' }, containerStyle]}>
             {/* 태그 이름 */}
@@ -10,7 +10,7 @@ const CommonTag = ({ name, size, color, onPress, showCloseButton , containerStyl
             </Text>
             {/* "x" 버튼 조건부 렌더링 */}
             {showCloseButton && (
-                <TouchableOpacity style={styles.closeButton} onPress={onPress}>
+                <TouchableOpacity style={[styles.closeButton, closeButtonStyle]} onPress={onPress}>
                     <Text style={styles.closeButtonText}>x</Text>
                 </TouchableOpacity>
             )}

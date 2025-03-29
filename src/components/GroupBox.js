@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { BLACK_COLOR, G_DARK_COLOR, WHITE_COLOR } from '../constants/colors';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { BLACK_COLOR, WHITE_COLOR } from '../constants/colors';
 
-const GroupBox = ({ image, title, text, isLeader, currentCount, maxCount }) => {
+const GroupBox = ({ image, title, text, isLeader, currentCount, maxCount, onPress}) => {
   return (
+    <TouchableOpacity onPress={onPress}>
     <View style={styles.card}>
       {/* 이미지 섹션 */}
           <Image source={image} style={styles.image} />
@@ -24,25 +25,28 @@ const GroupBox = ({ image, title, text, isLeader, currentCount, maxCount }) => {
           </Text>
       </View>
     </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: WHITE_COLOR,
     borderRadius: 15,
     padding: 15,
-    marginVertical: 10,
-    marginHorizontal: 20,
+    marginTop: 15,
+    // marginVertical: 15, // 상하여백
+    // marginHorizontal: 10, // 좌우여백
+    width: '100%',
+    alignSelf: 'center' // 중앙정렬
   },
   image: {
     width: 70,
     height: 70,
     borderRadius: 35, // 원형 이미지
-    marginRight: 15,
+    marginRight: 10,
   },
   textContainer: {
     flex: 1,
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4, // 원형으로 만들기 위해 너비/높이의 절반 설정
     backgroundColor: '#66D3A5', // 동그라미 색상 일단 초록색으로 해뒀고 원 안에 원 말고 원 하나만 해뒀습니다 ~
-    marginHorizontal: 8
+    marginRight: 8,
   },
   title: {
     fontSize: 15,

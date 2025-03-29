@@ -11,13 +11,15 @@ const InputWithLabel = ({
   placeholder,
   error,
   isTextarea = false, // textarea 여부를 결정하는 속성 (기본값: false)
+  containerStyle,
+  labelStyle
 }) => {
 
   const [height, setHeight] = useState(100);
 
   return (
-    <View style={commonInput.container}>
-      {label && <Text style={commonInput.label}>{label}</Text>}
+    <View style={[commonInput.container, containerStyle]}>
+      {label && <Text style={[commonInput.label, labelStyle]}>{label}</Text>}
 
       <TextInput
         style={[
